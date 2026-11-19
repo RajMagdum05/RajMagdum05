@@ -1,101 +1,65 @@
-# Hi, I'm Raj Magdum 👋
+# Raj Magdum
 
-[![GitHub followers](https://img.shields.io/github/followers/RajMagdum05?style=for-the-badge&label=Followers&color=blue)](https://github.com/RajMagdum05)
-[![GitHub stars](https://img.shields.io/github/stars/RajMagdum05/RajMagdum05?style=for-the-badge&label=Stars&color=orange)](https://github.com/RajMagdum05/RajMagdum05)
-[![GitHub contributors](https://img.shields.io/github/contributors/RajMagdum05/RajMagdum05?style=for-the-badge&label=Contributors&color=green)](https://github.com/RajMagdum05/RajMagdum05/graphs/contributors)
+I build AI systems that **fail loudly instead of silently**, and the tools that show *why* they failed.
 
-> 💡 B.Tech CSE (AI & ML) Student | Python • C++ • AI/ML • DSA • Hackathon Builder | Startup Enthusiast
+Most of my work starts with something quietly broken in a real workflow, like a claims pipeline that returns a confident wrong answer, a tool schema that loses its constraints on the way to the model, or a payment retry that charges twice. I reproduce the problem first and then build the smallest system that fixes it.
 
----
-
-## 🎓 About Me
-
-I'm a **B.Tech Computer Science & Engineering (AI & ML)** student from **Maharashtra, India**, with a deep passion for **Artificial Intelligence, startups, hackathons, and building practical solutions**. I thrive on turning ideas into real-world projects and constantly challenge myself through competitive coding and collaborative innovation.
-
-- 🎓 Pursuing B.Tech in **Computer Science & Engineering (AI & ML)**
-- 💡 Deeply interested in **Artificial Intelligence, entrepreneurship, and product building**
-- 🧠 Currently building skills in **Python, C++, DSA, Machine Learning, ANN, and RAG**
-- 🌍 Based in **Maharashtra, India**
-- 🤝 Open to collaborating on meaningful **tech projects and hackathons**
+`Python` · `FastAPI` · `OpenTelemetry` · `LLM pipelines & evals` · Kolhapur, India
 
 ---
 
-## 💼 Experience
+### Now building
 
-| Role | Organization | Key Highlights |
-|------|-------------|----------------|
-| **Campus Ambassador** | E-Cell IIT Bombay | Promoting entrepreneurship, organizing events, and building startup ecosystem awareness |
-| **Member** | Tech Entrepreneurs Association of Mumbai (TEAM) | Engaging with tech startups, networking, and exploring business opportunities |
-| **6-Month Internship** | Industry Experience | Explored market gaps, teamwork dynamics, and real-world idea validation |
+**Retry-safe payments for MCP agents.** An agent calls a payment tool, the response times out, and it can't tell whether the money moved. I'm prototyping idempotent execution and outcome classification for [Peakflo's open-source pfMCP](https://github.com/peakflo/pfMCP) Xero server. So far: a fault-injection mock of the Xero API, a reproduction of the duplicate-payment bug, and a 94-test suite. This is an independent prototype, not an official Peakflo project. → [`Peakflo`](https://github.com/RajMagdum05/Peakflo)
 
 ---
 
-## 🏆 Hackathons & Competitions
+### Selected work
 
-- **OpenAI x NXT Wave** - Participated in AI-focused hackathon exploring cutting-edge LLM applications
-- **MumbaiHacks** - Collaborated with teams to build innovative solutions under time constraints
-- Actively seeking new hackathon opportunities to solve real-world problems through **AI and product thinking**
+#### [Pipeline Autopsy](https://github.com/RajMagdum05/Pipeline-Autopsy): root-cause analysis for multi-stage AI pipelines
+When an AI pipeline gives a bad result, the stage that fails is often not the one that caused it. Pipeline Autopsy ingests standard OpenTelemetry traces, rebuilds the execution graph, follows artifact lineage (which stage read and wrote what), and separates the root cause from downstream symptoms.
+- A **deterministic core picks the root cause**. The LLM only helps explain it, and the output falls back to a template when evidence is thin.
+- Pipelines connect through a small SDK over plain OTLP, so they need no Autopsy-specific code.
+- The system it diagnoses is a **claims-processing pipeline I built in the same repo**: OCR → quality gate → document classification → schema-specific extraction → validation. Every extracted field must cite a quote and page, so a bad scan stops the pipeline instead of producing a confident wrong value.
+- 340+ automated tests across the service, SDK and claims backend, plus recorded diagnosis cases in CI.
 
----
+*Status: working prototype, run locally with Docker Compose. Synthetic data only, not deployed.*
 
-## 🛠️ Tech Stack
+#### [Tool-Schema Doctor](https://github.com/RajMagdum05/Composio-tool-schema-doctor): QA for AI tool definitions · [live report](https://tool-schema-doctor.netlify.app)
+Composio's tool schemas get translated for each model provider, and some translations fail or silently drop constraints. I ran 930 tool schemas through Composio's real provider adapters at a pinned commit and turned what I found into a CLI, regression tests and an evidence dashboard.
+- Found that Gemini conversion dropped `enum` on 179 of 182 tools that used it. Separately, 114 of the 930 tools couldn't use OpenAI strict mode, and 6 failed Vertex conversion (an issue Composio later fixed upstream).
+- Compatibility checks block network access and never execute tools. Live model evaluation is opt-in.
 
-### Languages & Core
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
+*Status: complete for the analyzed snapshot. Independent analysis, not affiliated with Composio.*
 
-### AI & Machine Learning
-![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+#### [Hearly](https://github.com/RajMagdum05/Hearly): keep other people's voices out of your meetings
+If you join calls from a hostel, lab or shared room, people near you end up in the meeting. Hearly is a Chrome extension (Manifest V3) for Meet, Zoom and Teams. It captures meeting audio, transcribes it with Deepgram streaming or on-device Whisper (Transformers.js), and tests an MFCC voice-profile gate in an AudioWorklet so only the enrolled speaker reaches the call.
+- Co-built with Rehan Sanadi. I built the voice enrollment and profile-gating engine and the settings and transcript flows.
 
-### Tools & Platforms
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-
-### Concepts
-Data Structures • OOP • Problem Solving • ANN • ML Fundamentals • RAG • CS50P
+*Status: MVP. Transcription works; voice filtering is experimental. Part of YC Startup School.*
 
 ---
 
-## 📚 Featured Repositories
-
-| Repository | Description | Language |
-|-----------|-------------|----------|
-| [Personal_Portfolio-](https://github.com/RajMagdum05/Personal_Portfolio-) | Personal portfolio website showcasing projects and skills | TypeScript |
-| [CS50P](https://github.com/RajMagdum05/CS50P) | Python learning journey through Harvard's CS50P course | Python |
-| [Workshop-2025](https://github.com/RajMagdum05/Workshop-2025) | Python and JavaScript workshop code and exercises | Python, JS |
-| [CPP](https://github.com/RajMagdum05/CPP) | C++ questions, notes, and problem-solving | C++ |
-| [GitPractice](https://github.com/RajMagdum05/GitPractice) | Git and version control practice repository | C++ |
+### What I work with
+**Languages:** Python, JavaScript/TypeScript, SQL
+**Backend:** FastAPI, PostgreSQL, SQLAlchemy, Docker
+**AI systems:** LLM extraction with strict schemas, OCR pipelines (Tesseract, PyMuPDF), guardrails & evals, agent tool-calling, MCP
+**Observability:** OpenTelemetry, Jaeger
+**Frontend (when needed):** React, Next.js, Chrome extensions
 
 ---
 
-## 🚀 Current Focus
+### How I work
+- **Understand the problem before the technology.** I reproduce the failure before I design the fix.
+- **Make wrong answers visible.** I use quality gates, evidence-backed outputs and deterministic checks around the model, not just a better prompt.
+- **Keep scope honest.** Every project above says what works, what doesn't yet, and what data it ran on.
 
-- 📖 Deepening **AI/ML knowledge** through hands-on projects
-- 🎯 Improving **DSA and problem-solving** skills
-- 🏅 Participating in **hackathons** and collaborative coding challenges
-- 💻 Building **production-ready projects** with clean code
-- 🤖 Exploring **RAG, LLMs, and generative AI** applications
-
----
-
-## 📊 GitHub Stats
-
-![Raj Magdum's GitHub Stats](https://github-readme-stats.vercel.app/api?username=RajMagdum05&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=RajMagdum05&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9)
+Outside code: I was a Campus Ambassador for E-Cell IIT Bombay, a MumbaiHacks finalist, and a B.Tech CSE (AI & ML) student, graduating 2027.
 
 ---
 
-## 📬 Connect With Me
+### Let's talk
+I'm looking for an AI engineering role, internship or early-career, on a team putting LLM or agent systems in front of real users. Mumbai, Bangalore or remote.
+The best way to evaluate me is to open any repo above and ask me why I made one of its decisions.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rajmagdum05/)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/RajMagdum05)
-[![Email](https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:rajmagdum6844@gmail.com)
-
----
-
-> ⚡ "The best way to predict the future is to build it." – Abraham Lincoln
-
-Thanks for visiting my profile! 🙌
+[LinkedIn](https://www.linkedin.com/in/rajmagdum05/) · [Email](mailto:rajmagdum6844@gmail.com)
