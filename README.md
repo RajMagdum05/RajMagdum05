@@ -4,9 +4,7 @@
 </p>
 
 <p align="center">
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=36BCF7&center=true&vCenter=true&multiline=true&width=620&height=70&lines=People+→+Problems+→+Products;Python%2C+Applied+AI+%26+Product+Engineering" alt="Typing SVG" />
-  </a>
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=36BCF7&center=true&vCenter=true&width=600&height=45&lines=People+-%3E+Problems+-%3E+Products;Python%2C+Applied+AI+%26+Product+Engineering" alt="Typing SVG" />
 </p>
 
 <p align="center">
